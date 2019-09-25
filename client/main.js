@@ -2,6 +2,7 @@ let videoContainer = document.getElementById("video-container");
 let videoCardContainer = document.getElementById("video-card-container");
 let nextPageBtn = document.getElementById("next-page-btn");
 let previousPageBtn = document.getElementById("previous-page-btn");
+let showTotalVideo = document.getElementById("show-total");
 let nextPageToken = null,
   prevPageToken = null,
   thumbnails = null;
@@ -9,6 +10,8 @@ function getPage(url) {
   fetch(url)
     .then(res => res.json())
     .then(data => {
+      console.log(data);
+      showTotalVideo.innerHTML = "Total videos " + data.pageInfo.totalResults;
       videoCardContainer.innerHTML = " ";
       if (data.nextPageToken) nextPageToken = data.nextPageToken;
       if (data.prevPageToken) prevPageToken = data.prevPageToken;
