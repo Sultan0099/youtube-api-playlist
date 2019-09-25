@@ -10,11 +10,11 @@ function getPage(url) {
   fetch(url)
     .then(res => res.json())
     .then(data => {
-      console.log(data);
       showTotalVideo.innerHTML = "Total videos " + data.pageInfo.totalResults;
       videoCardContainer.innerHTML = " ";
       if (data.nextPageToken) nextPageToken = data.nextPageToken;
       if (data.prevPageToken) prevPageToken = data.prevPageToken;
+      appendVideo(data.items[0].snippet.resourceId.videoId);
       data.items.forEach(({ snippet }) => {
         if (!snippet.thumbnails.default.url) {
           thumbnails = snippet.thumbnails.medium.url;
@@ -66,4 +66,3 @@ previousPageBtn.onclick = () => {
 };
 
 getPage("/playlist");
-appendVideo("wBp0Rb-ZJak");
