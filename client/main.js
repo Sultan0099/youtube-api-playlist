@@ -35,10 +35,10 @@ function appendVideo(videoId) {
 function appendVideoCard(imgSrc, title, decription, videoId) {
   videoCardContainer.innerHTML += `<div class="card mb-3 videoCard"  onclick = "changeVideo('${videoId}')" >
    <div class="row no-gutters">
-         <div class="col-md-4">
+         <div class="col-lg-4 col-md-4 col-sm-4 col-4">
            <img src=${imgSrc} class="card-img" alt="...">
          </div>
-         <div class="col-md-8">
+         <div class="col-lg-8 col-md-8 col-sm-8 col-8">
            <div class="card-body">
              <h6 class="card-title">${title}</h6>
              <p class="card-text font-weight-light">${decription}</p>
