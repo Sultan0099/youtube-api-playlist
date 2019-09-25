@@ -17,7 +17,7 @@ app.use(cors());
 app.use(express.static("./client"));
 
 app.get("/playlist", async (req, res) => {
-  const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=10&playlistId=[your play list id]&key=${process.env.API_KEY}`;
+  const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=10&playlistId=${process.env.PLAYLIST_ID}&key=${process.env.API_KEY}`;
   try {
     const respones = await fetch(url);
     const data = await respones.json();
@@ -35,7 +35,7 @@ app.get("/playlist", async (req, res) => {
 });
 
 app.get("/playlist/:pageToken", async (req, res) => {
-  const urlWithPageToken = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=10&pageToken=${req.params.pageToken}&playlistId=[your play list id]&key=${process.env.API_KEY}`;
+  const urlWithPageToken = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=10&pageToken=${req.params.pageToken}&playlistId=${process.env.PLAYLIST_ID}&key=${process.env.API_KEY}`;
   try {
     const respones = await fetch(urlWithPageToken);
     const data = await respones.json();
