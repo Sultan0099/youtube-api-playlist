@@ -1,0 +1,22 @@
+#video-container,
+.video {
+  height: 350px;
+}
+
+.video {
+  width: 100%;
+}
+
+#video-card-container .card {
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+#video-card-container .card-img {
+  height: 100%;
+}
+
+.videoCard:hover {
+  border: 1px solid black;
+  cursor: pointer;
+}
