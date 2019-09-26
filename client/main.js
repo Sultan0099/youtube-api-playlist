@@ -32,11 +32,11 @@ function getPage(url) {
     .catch(err => console.log(err));
 }
 function appendVideo(videoId) {
-  videoContainer.innerHTML = ` <iframe class="video" src="https://www.youtube.com/embed/${videoId}"  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+  videoContainer.innerHTML = ` <iframe class="video" src="https://www.youtube.com/embed/${videoId}" style="border:none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
 }
 
 function appendVideoCard(imgSrc, title, decription, videoId) {
-  videoCardContainer.innerHTML += `<div class="card mb-3 videoCard"  onclick = "changeVideo('${videoId}')" >
+  videoCardContainer.innerHTML += `<div class="card mb-3 videoCard" id="${videoId}" onclick = "changeVideo('${videoId}')" >
    <div class="row no-gutters">
          <div class="col-lg-4 col-md-4 col-sm-4 col-4">
            <img src=${imgSrc} class="card-img" alt="...">
@@ -53,8 +53,17 @@ function appendVideoCard(imgSrc, title, decription, videoId) {
 }
 
 function changeVideo(id) {
-  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  let cards = document.querySelectorAll(".videoCard");
+  let card = document.getElementById(id);
+
+  cards.forEach(cd => {
+    cd.style.backgroundColor = "white";
+    cd.style.color = "black";
+  });
+  card.style.backgroundColor = "black";
+  card.style.color = "white";
   appendVideo(id);
+  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
 }
 
 nextPageBtn.onclick = () => {
