@@ -5,12 +5,24 @@ let previousPageBtn = document.getElementById("previous-page-btn");
 let showTotalVideo = document.getElementById("show-total");
 let nextPageToken = null,
   prevPageToken = null,
-  thumbnails = null;
+  thumbnails = null,
+  card,
+  cards,
+  videoPerpage = 0,
+  perPageVideo = 10,
+  totalVide;
+
+function showPageAndVideoCount(data) {
+  totalVideo = data.pageInfo.totalResults - videoPerpage;
+  showTotalVideo.innerHTML = `Total videos ${totalVideo}  `;
+  videoPerpage += 10;
+}
+
 function getPage(url) {
   fetch(url)
     .then(res => res.json())
     .then(data => {
-      showTotalVideo.innerHTML = "Total videos " + data.pageInfo.totalResults;
+      showTotalVideo.innerHTML = "Total video" + data.pageInfo.totalResults;
       videoCardContainer.innerHTML = " ";
       if (data.nextPageToken) nextPageToken = data.nextPageToken;
       if (data.prevPageToken) prevPageToken = data.prevPageToken;
@@ -32,7 +44,7 @@ function getPage(url) {
     .catch(err => console.log(err));
 }
 function appendVideo(videoId) {
-  videoContainer.innerHTML = ` <iframe class="video" src="https://www.youtube.com/embed/${videoId}" style="border:none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+  videoContainer.innerHTML = ` <iframe class="video" src="https://www.youtube.com/embed/${videoId}?rel=0&color=white" style="border:none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
 }
 
 function appendVideoCard(imgSrc, title, decription, videoId) {
@@ -53,13 +65,13 @@ function appendVideoCard(imgSrc, title, decription, videoId) {
 }
 
 function changeVideo(id) {
-  let cards = document.querySelectorAll(".videoCard");
-  let card = document.getElementById(id);
-
+  cards = document.querySelectorAll(".videoCard");
+  card = document.getElementById(id);
   cards.forEach(cd => {
     cd.style.backgroundColor = "white";
     cd.style.color = "black";
   });
+
   card.style.backgroundColor = "black";
   card.style.color = "white";
   appendVideo(id);
@@ -67,7 +79,9 @@ function changeVideo(id) {
 }
 
 nextPageBtn.onclick = () => {
-  if (nextPageToken) getPage(`/playlist/${nextPageToken}`);
+  if (nextPageToken) {
+    getPage(`/playlist/${nextPageToken}`);
+  }
 };
 
 previousPageBtn.onclick = () => {
